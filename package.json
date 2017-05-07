@@ -1,0 +1,42 @@
+{
+  "name": "flimshaw-twgl-boilerplate",
+  "version": "0.1.0",
+  "description": "Flimshaw TWGL Boilerplate featuring webpack2",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack; gzip -fk build.js;",
+    "start": "webpack-dev-server --host 0.0.0.0",
+    "lint": "semistandard -v | snazzy",
+    "deploy": "rsync -r --progress --exclude='node_modules/*' --exclude='.git/*' ./ $DEPLOY_PATH"
+  },
+  "repository": "flimshaw/twgl-boilerplate",
+  "author": {
+    "name": "Charlie Hoey",
+    "email": "me@charliehoey.com"
+  },
+  "license": "MIT",
+  "semistandard": {
+    "ignore": [
+      "**/vendor/**"
+    ]
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.0",
+    "google-closure-compiler-js": "^20170423.0.0",
+    "sass-loader": "^6.0.3",
+    "twgl.js": "^3.3.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "glsl-colormap": "^1.0.1",
+    "glsl-noise": "0.0.0",
+    "glsl-scale-log": "^1.0.0",
+    "glslify": "^6.0.1",
+    "glslify-loader": "^1.0.2",
+    "node-sass": "^4.5.0",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "whatwg-fetch": "^2.0.3"
+  }
+}
