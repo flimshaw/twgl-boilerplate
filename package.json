@@ -4,7 +4,7 @@
   "description": "Flimshaw TWGL Boilerplate featuring webpack2",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack; gzip -fk build.js;",
-    "start": "webpack-dev-server --host 0.0.0.0",
+    "start": "webpack-dev-server --host 0.0.0.0 --public 10.10.100.13:8080",
     "lint": "semistandard -v | snazzy",
     "deploy": "rsync -r --progress --exclude='node_modules/*' --exclude='.git/*' ./ $DEPLOY_PATH"
   },
