@@ -3,34 +3,29 @@ require('../css/main.scss');
 
 var el = document.getElementById('app');
 var canvas = document.createElement('canvas');
-// canvas.setAttribute('width', window.innerWidth * window.devicePixelRatio);
-// canvas.setAttribute('height', window.innerHeight * window.devicePixelRatio);
-canvas.width = window.innerWidth * window.devicePixelRatio;
-canvas.height = window.innerHeight * window.devicePixelRatio;
+canvas.width = window.innerWidth;// * window.devicePixelRatio;
+canvas.height = window.innerHeight;// * window.devicePixelRatio;
 el.appendChild(canvas);
 
 var gl = canvas.getContext("webgl");
 var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
 
+var boxSize = 1.;
+
 var arrays = {
-  position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0],
+  position: [-boxSize, -boxSize, 0, boxSize, -boxSize, 0, -boxSize, boxSize, 0, -boxSize, boxSize, 0, boxSize, -boxSize, 0, boxSize, boxSize, 0],
 };
 var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
 var fboTex = twgl.createTexture(gl);
-//
-// var fbi = twgl.createFramebufferInfo(gl);
-// // gl.bindFramebuffer(gl.FRAMEBUFFER, fbi.framebuffer, fboTex);
-
+var offset = Math.random() * 40;
 function render(time) {
   if (twgl.resizeCanvasToDisplaySize(gl.canvas)) {
-    // resize the attachments to match
-    // twgl.resizeFramebufferInfo(gl, fbi, attachments);
   }
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
   var uniforms = {
-    time: time * 0.001,
+    time: offset + time * 0.0005,
     resolution: [gl.canvas.width, gl.canvas.height]
   };
 
