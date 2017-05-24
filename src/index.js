@@ -7,17 +7,24 @@ canvas.width = window.innerWidth;// * window.devicePixelRatio;
 canvas.height = window.innerHeight;// * window.devicePixelRatio;
 el.appendChild(canvas);
 
-var gl = canvas.getContext("webgl");
+var gl = canvas.getContext("webgl2");
 var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
 
-var boxSize = 1.;
+const s = 1000;
 
 var arrays = {
-  position: [-boxSize, -boxSize, 0, boxSize, -boxSize, 0, -boxSize, boxSize, 0, -boxSize, boxSize, 0, boxSize, -boxSize, 0, boxSize, boxSize, 0],
+  position: { numComponents: 2, data: [-1, -1, 1, -1, 0, 1] },
+  color: { numComponents: 3, data: [
+    1,0,0,
+    0,1,0,
+    0,0,1
+  ]}
 };
 var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
-var fboTex = twgl.createTexture(gl);
+// var bufferInfo = twgl.primitives.createXYQuadBufferInfo(gl);
+// var bufferInfo = twgl.createBufferInfoFromArrays(gl, attrs);
+
 var offset = Math.random() * 40;
 function render(time) {
   if (twgl.resizeCanvasToDisplaySize(gl.canvas)) {
