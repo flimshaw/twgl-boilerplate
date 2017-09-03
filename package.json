@@ -23,6 +23,7 @@
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "glsl-hsl2rgb": "^1.1.0",
+    "glsl-noise": "0.0.0",
     "google-closure-compiler-js": "^20170423.0.0",
     "sass-loader": "^6.0.3",
     "twgl.js": "^3.3.0",

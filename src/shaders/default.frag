@@ -9,5 +9,5 @@ out vec4 outColor;
 
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
-  outColor = vec4(v_color, 1.);
+  outColor = vec4((v_color.xyz + 1.) * .5, .1);
 }

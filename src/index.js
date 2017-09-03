@@ -16,32 +16,37 @@ function init() {
   // let res = [Math.floor(gl.canvas.width*window.devicePixelRatio),Math.floor(gl.canvas.height*window.devicePixelRatio)]
   // canvas.width = res[0];
   // canvas.height = res[1];
-  debugger;
+  // debugger;
 
   var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
 
   const s = 1000;
+  const particleCount = 5e4;
+
+  var pos = [];
+  var color = [];
+  var idx = [];
+
+  for(var i = 0; i < particleCount; i++) {
+    pos.push(2.*(Math.random()-.5));
+    pos.push(Math.random()-.5);
+    color.push(Math.random());
+    color.push(Math.random());
+    color.push(Math.random());
+    idx.push(i);
+  }
 
   var arrays = {
-    position: { numComponents: 2, data: [-1, -1, 1, -1, 0, 1] },
-    color: { numComponents: 3, data: [
-      1,0,0,
-      0,1,0,
-      0,0,1
-    ]},
-    idx: { numComponents: 1, data: [0,1,2]}
+    position: { numComponents: 2, data: pos },
+    color: { numComponents: 3, data: color },
+    idx: { numComponents: 1, data: idx}
   };
   var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
   var offset = Math.random() * 40;
-  console.log(res)
+  // console.log(res)
   gl.viewport(0, 0, res[0], res[1]);
   function render(time) {
-    // if (twgl.resizeCanvasToDisplaySize(gl.canvas)) {
-    // res = [gl.canvas.width,gl.canvas.height]
-
-    // }
-
 
     var uniforms = {
       u_time: offset + time * 0.0005,
@@ -51,7 +56,7 @@ function init() {
     gl.useProgram(programInfo.program);
     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
     twgl.setUniforms(programInfo, uniforms);
-    twgl.drawBufferInfo(gl, bufferInfo);
+    twgl.drawBufferInfo(gl, bufferInfo, gl.POINTS);
 
     requestAnimationFrame(render);
   }
