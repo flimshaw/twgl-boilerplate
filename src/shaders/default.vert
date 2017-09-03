@@ -18,8 +18,8 @@ void main() {
   float n = snoise2(position + u_time * 1.1 + position.x);
   float n2 = snoise2(position - u_time * .5 + (position.y*5.));
   v_color = color + vec3(n, n2, 1.);
-  gl_PointSize = 1. + (1. - (n2 * n) * 16.);
+  // gl_PointSize = 1. + (1. - (n2 * n) * 32.);
   // gl_Position = vec4(position, 0., 1.);
-  gl_Position = vec4(position.x, (position.y*0.) + (n-n2) * .1, 0., 1.0);
+  gl_Position = vec4(position.x, (position.y) + (n-n2) * .5, 0., 1.0);
   v_pos = gl_Position.xy;
 }

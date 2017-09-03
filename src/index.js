@@ -21,15 +21,15 @@ function init() {
   var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
 
   const s = 1000;
-  const particleCount = 5e4;
+  const particleCount = 2e2;
 
   var pos = [];
   var color = [];
   var idx = [];
 
   for(var i = 0; i < particleCount; i++) {
-    pos.push(2.*(Math.random()-.5));
-    pos.push(.05 * (Math.random()-.5));
+    pos.push(.1*(Math.random()-.5) + (i - particleCount * .5) * .1);
+    pos.push(1.5 * (Math.random()-.5));
     const c = Math.random();
     color.push(c);
     color.push(c);
@@ -57,7 +57,7 @@ function init() {
     gl.useProgram(programInfo.program);
     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
     twgl.setUniforms(programInfo, uniforms);
-    twgl.drawBufferInfo(gl, bufferInfo, gl.POINTS);
+    twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLES  );
 
     requestAnimationFrame(render);
   }
