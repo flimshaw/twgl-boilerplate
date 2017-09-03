@@ -13,10 +13,6 @@ init();
 function init() {
 
   var gl = canvas.getContext("webgl2");
-  // let res = [Math.floor(gl.canvas.width*window.devicePixelRatio),Math.floor(gl.canvas.height*window.devicePixelRatio)]
-  // canvas.width = res[0];
-  // canvas.height = res[1];
-  // debugger;
 
   var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
 
@@ -28,11 +24,11 @@ function init() {
   var idx = [];
 
   for(var i = 0; i < particleCount; i++) {
-    pos.push(.1*(Math.random()-.5) + (i - particleCount * .5) * .1);
-    pos.push(1.5 * (Math.random()-.5));
+    pos.push(i * .005 - (particleCount * .0025));
+    pos.push(0.);
     const c = Math.random();
     color.push(c);
-    color.push(c);
+    color.push(c*.5);
     color.push(c);
     idx.push(i);
   }
@@ -57,7 +53,7 @@ function init() {
     gl.useProgram(programInfo.program);
     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
     twgl.setUniforms(programInfo, uniforms);
-    twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLES  );
+    twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLE_FAN );
 
     requestAnimationFrame(render);
   }
