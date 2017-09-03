@@ -29,10 +29,11 @@ function init() {
 
   for(var i = 0; i < particleCount; i++) {
     pos.push(2.*(Math.random()-.5));
-    pos.push(Math.random()-.5);
-    color.push(Math.random());
-    color.push(Math.random());
-    color.push(Math.random());
+    pos.push(.05 * (Math.random()-.5));
+    const c = Math.random();
+    color.push(c);
+    color.push(c);
+    color.push(c);
     idx.push(i);
   }
 
