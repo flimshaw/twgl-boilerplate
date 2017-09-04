@@ -3,59 +3,37 @@ require('../css/main.scss');
 
 var el = document.getElementById('app');
 var canvas = document.createElement('canvas');
-let res = [Math.floor(window.innerWidth*window.devicePixelRatio),Math.floor(window.innerHeight*window.devicePixelRatio)]
-canvas.width = res[0];
-canvas.height = res[1];
+canvas.width = window.innerWidth * window.devicePixelRatio;
+canvas.height = window.innerHeight * window.devicePixelRatio;
 el.appendChild(canvas);
 
-init();
+var gl = canvas.getContext("webgl");
+var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
 
-function init() {
+var boxSize = 1.;
 
-  var gl = canvas.getContext("webgl2");
+var arrays = {
+  position: [-boxSize, -boxSize, 0, boxSize, -boxSize, 0, -boxSize, boxSize, 0, -boxSize, boxSize, 0, boxSize, -boxSize, 0, boxSize, boxSize, 0],
+};
+var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
-  var programInfo = twgl.createProgramInfo(gl, [require('./shaders/default.vert'), require('./shaders/default.frag')]);
-
-  const s = 1000;
-  const particleCount = 2e2;
-
-  var pos = [];
-  var color = [];
-  var idx = [];
-
-  for(var i = 0; i < particleCount; i++) {
-    pos.push(i * .005 - (particleCount * .0025));
-    pos.push(0.);
-    const c = Math.random();
-    color.push(c);
-    color.push(c*.5);
-    color.push(c);
-    idx.push(i);
+var fboTex = twgl.createTexture(gl);
+var offset = Math.random() * 40;
+function render(time) {
+  if (twgl.resizeCanvasToDisplaySize(gl.canvas)) {
   }
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-  var arrays = {
-    position: { numComponents: 2, data: pos },
-    color: { numComponents: 3, data: color },
-    idx: { numComponents: 1, data: idx}
+  var uniforms = {
+    time: offset + time * 0.0005,
+    resolution: [gl.canvas.width, gl.canvas.height]
   };
-  var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
-  var offset = Math.random() * 40;
-  // console.log(res)
-  gl.viewport(0, 0, res[0], res[1]);
-  function render(time) {
+  gl.useProgram(programInfo.program);
+  twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+  twgl.setUniforms(programInfo, uniforms);
+  twgl.drawBufferInfo(gl, bufferInfo);
 
-    var uniforms = {
-      u_time: offset + time * 0.0005,
-      resolution: res//[gl.canvas.width, gl.canvas.height]
-    };
-
-    gl.useProgram(programInfo.program);
-    twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
-    twgl.setUniforms(programInfo, uniforms);
-    twgl.drawBufferInfo(gl, bufferInfo, gl.TRIANGLE_FAN );
-
-    requestAnimationFrame(render);
-  }
   requestAnimationFrame(render);
 }
+requestAnimationFrame(render);
