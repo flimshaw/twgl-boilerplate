@@ -17,7 +17,13 @@ var arrays = {
 };
 var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
-var fboTex = twgl.createTexture(gl);
+// var fboTex = twgl.createTexture(gl);
+var textures = twgl.createTextures(gl, {
+  noise: {
+    src: 'assets/textures/noise2048.png',
+  },
+})
+
 var offset = Math.random() * 40;
 function render(time) {
   if (twgl.resizeCanvasToDisplaySize(gl.canvas)) {
@@ -26,7 +32,8 @@ function render(time) {
 
   var uniforms = {
     time: offset + time * 0.0005,
-    resolution: [gl.canvas.width, gl.canvas.height]
+    resolution: [gl.canvas.width, gl.canvas.height],
+    noise: textures.noise
   };
 
   gl.useProgram(programInfo.program);
