@@ -31,7 +31,7 @@ function render(time) {
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
   var uniforms = {
-    time: offset + time * 0.0005,
+    time: offset + time * 0.05,
     resolution: [gl.canvas.width, gl.canvas.height],
     noise: textures.noise
   };
