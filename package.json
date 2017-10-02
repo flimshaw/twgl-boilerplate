@@ -6,6 +6,7 @@
     "build": "cross-env NODE_ENV=production webpack; gzip -fk build.js;",
     "start": "webpack-dev-server",
     "startl": "webpack-dev-server --host 0.0.0.0 --public 10.10.100.13:8080",
+    "bab": "babel",
     "lint": "semistandard -v | snazzy",
     "deploy": "rsync -r --progress --exclude='node_modules/*' --exclude='.git/*' ./ $DEPLOY_PATH"
   },
@@ -21,6 +22,7 @@
     ]
   },
   "devDependencies": {
+    "babel-preset-react": "^6.24.1",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "glsl-hsl2rgb": "^1.1.0",
@@ -31,16 +33,21 @@
     "sass-loader": "^6.0.3",
     "twgl.js": "^3.3.0",
     "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
     "glsl-colormap": "^1.0.1",
     "glsl-noise": "0.0.0",
     "glsl-scale-log": "^1.0.0",
     "glsl-y-rotate": "^2.0.0",
     "glslify": "^6.0.1",
     "glslify-loader": "^1.0.2",
+    "jsx-loader": "^0.13.2",
     "node-sass": "^4.5.0",
+    "preact": "^8.2.5",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",

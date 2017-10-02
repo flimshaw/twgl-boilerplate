@@ -2,13 +2,14 @@ body {
   background-color: #111;
   margin: 0;
   padding: 0;
+  color: #fff;
 }
 
 #app {
   canvas {
-    width: 100vw;
-    height: 100vh;
-
+    width: 50vw;
+    height: 50vh;
+    float: left;
     // transform-origin: top left;
     // transform: scale3d(.5);
   }

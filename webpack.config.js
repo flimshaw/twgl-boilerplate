@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var ClosureCompilerPlugin = require('google-closure-compiler-js').webpack;
 
 var PLUGINS = [];
+
 if (process.env.NODE_ENV === 'production') {
   PLUGINS.push(    new ClosureCompilerPlugin({
         compiler: {
@@ -14,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  entry: ['whatwg-fetch','./src/index.js'],
+  entry: ['whatwg-fetch','./src/index.jsx'],
   output: {
     path: __dirname,
     filename: 'build.js'
@@ -32,6 +33,7 @@ module.exports = {
           }]
       },
       { test: /\.(glsl|frag|vert)$/, loader: 'raw-loader', exclude: /node_modules/ },
-      { test: /\.(glsl|frag|vert)$/, loader: 'glslify-loader', exclude: /node_modules/ }
+      { test: /\.(glsl|frag|vert)$/, loader: 'glslify-loader', exclude: /node_modules/ },
+      { test: /\.jsx?$/, loader: 'babel-loader' }
     ]}
 };
