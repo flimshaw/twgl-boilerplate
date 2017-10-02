@@ -42,10 +42,10 @@ void main() {
   uv = uv * 2.0 - 1.0;
   uv.x *= resolution.x / resolution.y;
 
-  float ts = time * .00025;
+  float ts = time * .05;
 
-  vec3 o = vec3(0.,0.,ts);
-  vec3 r = normalize(vec3(uv, 2.));
+  vec3 o = vec3(0.,0.,ts*.01);
+  vec3 r = normalize(vec3(uv, 1.));
   // r *= rotateY(sin(time*.02)*5. * DEG_TO_RAD);
 
   float t = trace(o, r, ts);

@@ -6,9 +6,7 @@ require('../css/main.scss');
 
 render((
   <div id={`app`}>
-    <Shader />
-    <Shader />
-    <Shader />
-    <Shader />
+    <Shader name={`perlin-cloudfield`} />
+    <Shader name={`gooey-colors`} />
   </div>
 ), document.body);

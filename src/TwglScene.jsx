@@ -15,11 +15,11 @@ export class TwglScene extends Component {
   componentDidMount() {
 
     const canvas = this.el;
-    // canvas.width = window.innerWidth * window.devicePixelRatio * 0.5;
-    // canvas.height = window.innerHeight * window.devicePixelRatio * 0.5;
+    canvas.width = canvas.width * window.devicePixelRatio;
+    canvas.height = canvas.width * window.devicePixelRatio;
 
     this.gl = canvas.getContext("webgl");
-    this.programInfo = twgl.createProgramInfo(this.gl, [require('./shaders/perlin-cloudfield/shader.vert'), require('./shaders/perlin-cloudfield/shader.frag')]);
+    this.programInfo = twgl.createProgramInfo(this.gl, [this.vertShader, this.fragShader]);
 
     const boxSize = 1.;
 
@@ -39,7 +39,6 @@ export class TwglScene extends Component {
   }
 
   glRender(time) {
-    // twgl.resizeCanvasToDisplaySize(gl.canvas);
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
 
     const uniforms = {
@@ -56,9 +55,8 @@ export class TwglScene extends Component {
     requestAnimationFrame(this.glRender);
   }
 
-	render() {
-
-		return (<span><canvas ref={(canvas) => { this.el = canvas; }}/></span>);
+	render({ frag, vert }) {
+		return (<span><canvas ref={(canvas) => { this.el = canvas; this.fragShader = frag; this.vertShader = vert; }}/></span>);
 	}
 
 }
