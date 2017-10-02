@@ -20,7 +20,7 @@ var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 // var fboTex = twgl.createTexture(gl);
 var textures = twgl.createTextures(gl, {
   noise: {
-    src: 'assets/textures/noise2048.png',
+    src: 'assets/textures/noise256.jpg',
   },
 })
 

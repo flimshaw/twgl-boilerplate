@@ -6,3 +6,5 @@ npm-debug.log*
 build.js
 stats.json
 config.json
+build.js
+build.js.gz
