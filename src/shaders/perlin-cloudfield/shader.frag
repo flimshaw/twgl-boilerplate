@@ -32,7 +32,6 @@ float trace(vec3 o, vec3 r, float ts) {
     float d = sphereSDF(p, ts);
     t += d * 0.4;
   }
-  // return abs(t);
   return t;
 }
 
@@ -46,7 +45,6 @@ void main() {
 
   vec3 o = vec3(0.,0.,ts*.01);
   vec3 r = normalize(vec3(uv, 1.));
-  // r *= rotateY(sin(time*.02)*5. * DEG_TO_RAD);
 
   float t = trace(o, r, ts);
   gl_FragColor = colormap(min(1., t));//vec4( vec3(1. - t), 1.0);//vec4(blackbody, 1.0); //vec4(.5 * (sin(2.*time+uv.x*1.3) + 1.), .5 * (sin(.9*-time+uv.x*1.4) + 1.), .5 * (sin(1.5*time+uv.x+uv.y) + 1.), 1.);// mandelbrot(gl_FragCoord.xy);

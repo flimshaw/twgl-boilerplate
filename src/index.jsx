@@ -8,7 +8,7 @@ render((
   <div id={`app`}>
     <Shader name={`perlin-cloudfield`} />
     <Shader name={`gooey-colors`} />
+    <Shader name={`stripey`} />
     <Shader name={`uv-helloworld`} />
-    <Shader name={`perlin-cloudfield`} />
   </div>
 ), document.body);

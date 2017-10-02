@@ -8,9 +8,8 @@ body {
 #app {
   .shader {
     position: relative;
-    width: 50vw;
-    height: 50vh;
-    float: left;
+    width: 100vw;
+    height: 25vh;
     h2 {
       position: absolute;
       top: 0;
@@ -23,6 +22,7 @@ body {
     &:hover {
       h2 {
         opacity: 1;
+        z-index: 10;
       }
     }
     canvas {
@@ -30,9 +30,14 @@ body {
       height: 100%;
       padding: 0;
       margin: 0;
+      position: absolute;
       // transform-origin: top left;
       // transform: scale3d(.5);
     }
+    // canvas:-webkit-full-screen {
+    //   width: 100vw;
+    //   height: 100vh;
+    // }
   }
 
 }
