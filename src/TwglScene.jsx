@@ -7,12 +7,16 @@ export class TwglScene extends Component {
     super();
     // set initial time:
     this.state = {
-      time: Date.now()
+      time: Date.now(),
+      hovering: false
     };
     this.glRender = this.glRender.bind(this);
   }
 
   componentDidMount() {
+
+    this.el.addEventListener('mouseover', this.handleMouseOver.bind(this));
+    this.el.addEventListener('mouseout', this.handleMouseOut.bind(this));
 
     const canvas = this.el;
     canvas.width = canvas.width * window.devicePixelRatio;
@@ -35,7 +39,19 @@ export class TwglScene extends Component {
     });
 
     // update time every second
-    this.glRender();
+    setTimeout(() => {
+      this.glRender(1.)
+    }, 100);
+
+  }
+
+  handleMouseOver() {
+    this.setState({ hovering: true });
+    requestAnimationFrame(this.glRender);
+  }
+
+  handleMouseOut() {
+    this.setState({ hovering: false });
   }
 
   glRender(time) {
@@ -52,7 +68,9 @@ export class TwglScene extends Component {
     twgl.setUniforms(this.programInfo, uniforms);
     twgl.drawBufferInfo(this.gl, this.bufferInfo);
 
-    requestAnimationFrame(this.glRender);
+    if(this.state.hovering) {
+      requestAnimationFrame(this.glRender);
+    }
   }
 
 	render({ frag, vert }) {

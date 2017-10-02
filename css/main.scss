@@ -6,11 +6,33 @@ body {
 }
 
 #app {
-  canvas {
+  .shader {
+    position: relative;
     width: 50vw;
     height: 50vh;
     float: left;
-    // transform-origin: top left;
-    // transform: scale3d(.5);
+    h2 {
+      position: absolute;
+      top: 0;
+      margin: 0;
+      padding: 1em;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    &:hover {
+      h2 {
+        opacity: 1;
+      }
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      // transform-origin: top left;
+      // transform: scale3d(.5);
+    }
   }
+
 }

@@ -8,9 +8,10 @@ export class Shader extends Component {
     const vert = require(`./shaders/${name}/shader.vert`);
 
 		return (
-      <span>
+      <div className={`shader`}>
+        <h2>{name}</h2>
         <TwglScene frag={frag} vert={vert} />
-      </span>
+      </div>
     );
 	}
 }
