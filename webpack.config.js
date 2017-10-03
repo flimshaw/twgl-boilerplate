@@ -4,14 +4,21 @@ var ClosureCompilerPlugin = require('google-closure-compiler-js').webpack;
 var PLUGINS = [];
 
 if (process.env.NODE_ENV === 'production') {
-  PLUGINS.push(    new ClosureCompilerPlugin({
-        compiler: {
-          language_in: 'ECMASCRIPT6',
-          language_out: 'ECMASCRIPT5',
-          compilation_level: 'SIMPLE'
-        },
-        concurrency: 3,
-      }))
+  // PLUGINS.push(    new ClosureCompilerPlugin({
+  //       compiler: {
+  //         language_in: 'ECMASCRIPT6',
+  //         language_out: 'ECMASCRIPT5',
+  //         compilation_level: 'SIMPLE'
+  //       },
+  //       concurrency: 3,
+  //     }))
+  PLUGINS.push(
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      ascii_only: true,
+      quote_keys: true
+    })
+  );
 }
 
 module.exports = {

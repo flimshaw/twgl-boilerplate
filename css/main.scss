@@ -9,7 +9,10 @@ body {
   .shader {
     position: relative;
     width: 100vw;
-    height: 25vh;
+    height: 100vh;
+    &.playing {
+      height: 80vh;
+    }
     h2 {
       position: absolute;
       top: 0;
@@ -39,5 +42,12 @@ body {
     //   height: 100vh;
     // }
   }
-
+  .shaderCursor {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    top: 0;
+    left: 0;
+  }
 }

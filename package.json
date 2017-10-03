@@ -41,6 +41,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015-native-modules": "^6.9.4",
     "glsl-colormap": "^1.0.1",
     "glsl-noise": "0.0.0",
     "glsl-scale-log": "^1.0.0",

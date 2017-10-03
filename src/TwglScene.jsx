@@ -8,7 +8,7 @@ export class TwglScene extends Component {
     // set initial time:
     this.state = {
       time: Date.now(),
-      hovering: false,
+      playing: false,
     };
     this.glRender = this.glRender.bind(this);
   }
@@ -65,12 +65,12 @@ export class TwglScene extends Component {
   }
 
   handleMouseOver() {
-    this.setState({ hovering: true });
+    this.setState({ playing: true });
     requestAnimationFrame(this.glRender);
   }
 
   handleMouseOut() {
-    this.setState({ hovering: false });
+    this.setState({ playing: false });
   }
 
   glRender(time) {
@@ -96,7 +96,7 @@ export class TwglScene extends Component {
     twgl.setUniforms(this.programInfo, uniforms);
     twgl.drawBufferInfo(this.gl, this.bufferInfo);
 
-    if(this.state.hovering) {
+    if(this.state.playing) {
       requestAnimationFrame(this.glRender);
     }
   }
