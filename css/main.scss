@@ -10,23 +10,14 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    &.playing {
-      height: 80vh;
-    }
+    pointer-events: none;
     h2 {
       position: absolute;
       top: 0;
       margin: 0;
       padding: 1em;
       box-sizing: border-box;
-      opacity: 0;
-      transition: opacity .3s;
-    }
-    &:hover {
-      h2 {
-        opacity: 1;
-        z-index: 10;
-      }
+      z-index: 20;
     }
     canvas {
       width: 100%;
@@ -34,20 +25,17 @@ body {
       padding: 0;
       margin: 0;
       position: absolute;
-      // transform-origin: top left;
-      // transform: scale3d(.5);
     }
-    // canvas:-webkit-full-screen {
-    //   width: 100vw;
-    //   height: 100vh;
-    // }
   }
   .shaderCursor {
-    position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 10;
+  }
+  .debugger {
+    position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
   }
+
 }

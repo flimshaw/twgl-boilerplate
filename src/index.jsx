@@ -4,16 +4,22 @@ import { h, render } from 'preact';
 
 require('../css/main.scss');
 
+const shaders = [
+  `stripey`,
+  `perlin-cloudfield`,
+  `gooey-colors`,
+  `stripey`,
+  `perlin-cloudfield`,
+  `gooey-colors`,
+  `stripey`,
+];
+
+const ShaderDivs = shaders.map( (s,i) => {
+  return <Shader name={s} id={`shader_${i}`} />
+});
 
 render((
   <div id={`app`}>
-    <ShaderCursor />
-    <Shader name={`stripey`} />
-    <Shader name={`perlin-cloudfield`} />
-    <Shader name={`gooey-colors`} />
-    <Shader name={`stripey`} />
-    <Shader name={`perlin-cloudfield`} />
-    <Shader name={`gooey-colors`} />
-    <Shader name={`stripey`} />
+    <ShaderCursor shaderDivs={ShaderDivs} />
   </div>
 ), document.body);

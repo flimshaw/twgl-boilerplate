@@ -15,26 +15,26 @@ export class TwglScene extends Component {
 
   componentDidMount() {
 
-    this.el.addEventListener('mouseover', this.handleMouseOver.bind(this));
-    this.el.addEventListener('mouseout', this.handleMouseOut.bind(this));
+    // this.el.addEventListener('mouseover', this.handleMouseOver.bind(this));
+    // this.el.addEventListener('mouseout', this.handleMouseOut.bind(this));
 
-    this.el.addEventListener('mousedown', () => {
-      this.el.width = window.screen.width * window.devicePixelRatio;
-      this.el.height = window.screen.height * window.devicePixelRatio;
-
-      this.el.webkitRequestFullScreen();
-    });
+    // this.el.addEventListener('mousedown', () => {
+    //   this.el.width = window.screen.width * window.devicePixelRatio;
+    //   this.el.height = window.screen.height * window.devicePixelRatio;
+    //
+    //   this.el.webkitRequestFullScreen();
+    // });
 
     // Note that the API is still vendor-prefixed in browsers implementing it
-    document.addEventListener('webkitfullscreenchange', () => {
-
-      const fs = document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenEnabled;
-
-      if ( !fs && this.el.width !== this.originalWidth ) {
-        this.el.width = this.originalWidth;
-        this.el.height = this.originalHeight;
-      }
-    });
+    // document.addEventListener('webkitfullscreenchange', () => {
+    //
+    //   const fs = document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenEnabled;
+    //
+    //   if ( !fs && this.el.width !== this.originalWidth ) {
+    //     this.el.width = this.originalWidth;
+    //     this.el.height = this.originalHeight;
+    //   }
+    // });
 
     const canvas = this.el;
 
@@ -57,7 +57,7 @@ export class TwglScene extends Component {
     this.textures = twgl.createTextures(this.gl, {
       noise: {
         src: 'assets/textures/noise256.jpg',
-        mag: this.gl.NEAREST,
+        mag: this.gl.LINEAR,
         min: this.gl.LINEAR,
       },
     }, () => this.glRender(1.));
@@ -77,11 +77,6 @@ export class TwglScene extends Component {
 
     let width = this.gl.canvas.width;
     let height = this.gl.canvas.height;
-    //
-    // if(fs) {
-    //   width = window.screen.width;
-    //   height = window.screen.height;
-    // }
 
     this.gl.viewport(0, 0, width, height);
 
@@ -101,7 +96,13 @@ export class TwglScene extends Component {
     }
   }
 
-	render({ frag, vert }) {
+	render({ frag, vert, playing }) {
+    // this.setState({ playing: playing })
+    if(this.state.playing !== playing) {
+      this.state.playing = playing;
+      requestAnimationFrame(this.glRender);
+    }
+
 		return (<div><canvas ref={(canvas) => { this.el = canvas; this.fragShader = frag; this.vertShader = vert; }}/></div>);
 	}
 

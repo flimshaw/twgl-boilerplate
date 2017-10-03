@@ -10,7 +10,7 @@ export class Shader extends Component {
 		return (
       <div className={`shader ${playing ? 'playing' : ''}`}>
         <h2>{name}</h2>
-        <TwglScene frag={frag} vert={vert} />
+        <TwglScene frag={frag} vert={vert} playing={playing} />
       </div>
     );
 	}
