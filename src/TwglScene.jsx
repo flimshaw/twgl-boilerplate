@@ -54,7 +54,7 @@ export class TwglScene extends Component {
 
     this.textures = twgl.createTextures(this.gl, {
       noise: {
-        src: 'assets/textures/noise256.jpg',
+        src: 'assets/textures/noise256.png',
         mag: this.gl.LINEAR,
         min: this.gl.LINEAR,
       },
