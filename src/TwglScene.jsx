@@ -3,7 +3,7 @@ import { Component, h } from 'preact';
 
 export class TwglScene extends Component {
 
-  constructor() {
+  constructor(props) {
     super();
     // set initial time:
     this.state = {
@@ -41,11 +41,9 @@ export class TwglScene extends Component {
     this.gl = canvas.getContext("webgl");
     this.programInfo = twgl.createProgramInfo(this.gl, [this.vertShader, this.fragShader]);
 
-    canvas.width = canvas.width * devicePixelRatio;
-    canvas.height = canvas.height * devicePixelRatio;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    this.originalWidth = canvas.width;
-    this.originalHeight = canvas.height;
 
     const boxSize = 1.;
 
@@ -75,8 +73,8 @@ export class TwglScene extends Component {
 
   glRender(time) {
 
-    let width = this.gl.canvas.width;
-    let height = this.gl.canvas.height;
+    let width = this.el.width;
+    let height = this.el.height;
 
     this.gl.viewport(0, 0, width, height);
 

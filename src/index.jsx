@@ -1,17 +1,15 @@
 import { Shader } from './Shader.jsx';
 import { ShaderCursor } from './ShaderCursor.jsx';
+import { FlimshawHeader } from './FlimshawHeader.jsx';
 import { h, render } from 'preact';
 
 require('../css/main.scss');
 
 const shaders = [
-  `stripey`,
+  `tropicalia`,
   `perlin-cloudfield`,
-  `gooey-colors`,
   `stripey`,
-  `perlin-cloudfield`,
   `gooey-colors`,
-  `stripey`,
 ];
 
 const ShaderDivs = shaders.map( (s,i) => {
@@ -20,6 +18,7 @@ const ShaderDivs = shaders.map( (s,i) => {
 
 render((
   <div id={`app`}>
+    <FlimshawHeader />
     <ShaderCursor shaderDivs={ShaderDivs} />
   </div>
 ), document.body);

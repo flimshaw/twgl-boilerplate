@@ -30,7 +30,6 @@ export class ShaderCursor extends Component {
     this.shaderDivs = this.shaderDivs.map( (s,i) => {
       if(i === this.state.currentShader || i === this.state.nextShader) {
         s.attributes.playing = true;
-        console.log(`Playing ${i}`)
       } else {
         s.attributes.playing = false;
       }

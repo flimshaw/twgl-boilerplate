@@ -12,13 +12,11 @@ if (process.env.NODE_ENV === 'production') {
   //       },
   //       concurrency: 3,
   //     }))
-  PLUGINS.push(
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      ascii_only: true,
-      quote_keys: true
-    })
-  );
+  // PLUGINS.push(
+  //   new webpack.optimize.UglifyJsPlugin({
+  //     minimize: true
+  //   })
+  // );
 }
 
 module.exports = {

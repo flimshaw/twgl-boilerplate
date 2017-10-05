@@ -5,6 +5,19 @@ body {
   color: #fff;
 }
 
+header.flimshaw {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 200;
+  mix-blend-mode: screen;
+  img {
+    margin: 25px;
+    width: 64px;
+    height: 64px;
+  }
+}
+
 #app {
   .shader {
     position: relative;
