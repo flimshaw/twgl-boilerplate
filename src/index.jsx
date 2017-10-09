@@ -6,6 +6,7 @@ import { h, render } from 'preact';
 require('../css/main.scss');
 
 const shaders = [
+  `autumnal`,
   `pyorpull-ran`,
   `tropicalia`,
   `perlin-cloudfield`,
