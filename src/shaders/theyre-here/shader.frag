@@ -15,12 +15,14 @@ void main() {
 
   // uv *= distance(uv, vec2(.5, .5))
 
-  vec4 n = texture2D(noise, uv+time);
-  vec4 n2 = texture2D(noise, n.rg+time);
-
   float m = abs(sin(uv.y * 480.)) - .2;
 
-  float m2 = abs(sin(uv.y-time*.0005)) + .4;
+  float m2 = abs(sin(uv.y-time*.0005)) + .2;
+
+
+    vec4 n = texture2D(noise, uv+time);
+    vec4 n2 = texture2D(noise, n.rg+time);
+
 
   vec3 c = vec3(m * rand(4. * fract(n2.rb) * vec2(4., 1.)));
 
