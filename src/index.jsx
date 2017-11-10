@@ -6,15 +6,16 @@ import { h, render } from 'preact';
 require('../css/main.scss');
 
 const shaders = [
-  `brots`,
-  `theyre-here`,
-  `lifestyle`,
-  `autumnal`,
-  `pyorpull-ran`,
-  `tropicalia`,
-  `perlin-cloudfield`,
-  `stripey`,
-  `gooey-colors`,
+	`vimtastic`,
+  //`brots`,
+  //`theyre-here`,
+  //`lifestyle`,
+  //`autumnal`,
+  //`pyorpull-ran`,
+  //`tropicalia`,
+  //`perlin-cloudfield`,
+  //`stripey`,
+  //`gooey-colors`,
 ];
 
 const ShaderDivs = shaders.map( (s,i) => {

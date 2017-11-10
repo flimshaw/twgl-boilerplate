@@ -10,40 +10,21 @@ export class TwglScene extends Component {
       time: Date.now(),
       playing: false,
     };
+		this.count = 0;
     this.glRender = this.glRender.bind(this);
   }
 
   componentDidMount() {
-
-    // this.el.addEventListener('mouseover', this.handleMouseOver.bind(this));
-    // this.el.addEventListener('mouseout', this.handleMouseOut.bind(this));
-
-    // this.el.addEventListener('mousedown', () => {
-    //   this.el.width = window.screen.width * window.devicePixelRatio;
-    //   this.el.height = window.screen.height * window.devicePixelRatio;
-    //
-    //   this.el.webkitRequestFullScreen();
-    // });
-
-    // Note that the API is still vendor-prefixed in browsers implementing it
-    // document.addEventListener('webkitfullscreenchange', () => {
-    //
-    //   const fs = document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenEnabled;
-    //
-    //   if ( !fs && this.el.width !== this.originalWidth ) {
-    //     this.el.width = this.originalWidth;
-    //     this.el.height = this.originalHeight;
-    //   }
-    // });
 
     const canvas = this.el;
 
     this.gl = canvas.getContext("webgl");
     this.programInfo = twgl.createProgramInfo(this.gl, [this.vertShader, this.fragShader]);
 
+		this.rectProgramInfo = twgl.createProgramInfo(this.gl, [require('./shaders/rect.vert'), require('./shaders/rect.frag')]);
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
 
     const boxSize = 1.;
 
@@ -52,16 +33,26 @@ export class TwglScene extends Component {
     };
     this.bufferInfo = twgl.createBufferInfoFromArrays(this.gl, arrays);
 
+		this.fbos = [];
+
+		this.fbos.push(twgl.createFramebufferInfo(this.gl));
+		this.fbos.push(twgl.createFramebufferInfo(this.gl));
+
     this.textures = twgl.createTextures(this.gl, {
       noise: {
         src: 'assets/textures/noise256.png',
         mag: this.gl.LINEAR,
         min: this.gl.LINEAR,
-      },
+      }
     }, () => this.glRender(1.));
 
-  }
-
+		this.mousePos = [0,0];
+		window.addEventListener('mousemove', this.handleMouseMove.bind(this));
+	}
+	handleMouseMove(e) {
+		this.mousePos[0] = e.clientX / window.innerWidth;
+		this.mousePos[1] = 1 - e.clientY / window.innerHeight;
+	}
   handleMouseOver() {
     this.setState({ playing: true });
     requestAnimationFrame(this.glRender);
@@ -72,22 +63,45 @@ export class TwglScene extends Component {
   }
 
   glRender(time) {
-
+		if(this.fbos[0] === undefined) {
+			requestAnimationFrame(this.glRender);
+			return;
+		}
     let width = this.el.width;
     let height = this.el.height;
-
+		//twgl.bindFramebufferInfo(this.gl, this.fbi);
     this.gl.viewport(0, 0, width, height);
-
+		this.count += 1;
     const uniforms = {
       time: time,
       resolution: [width, height],
-      noise: this.textures.noise
+      noise: this.textures.noise,
+			mousePos: this.mousePos,
     };
-
+		// determine if this is an odd or even frame and arrange
+		// buffers accordingly
+		const i = this.count % 2;
+		// mount the opposite FBO to a uniform texture
+		uniforms.fbo = this.fbos[Math.floor(!i)].attachments[0];
+		// target the current fbo
+		twgl.bindFramebufferInfo(this.gl, this.fbos[i]);
     this.gl.useProgram(this.programInfo.program);
+		// render the scene out to the target buffer
     twgl.setBuffersAndAttributes(this.gl, this.programInfo, this.bufferInfo);
     twgl.setUniforms(this.programInfo, uniforms);
     twgl.drawBufferInfo(this.gl, this.bufferInfo);
+
+
+		uniforms.fbi = this.fbos[i].attachments[0];
+
+		twgl.bindFramebufferInfo(this.gl);
+    this.gl.useProgram(this.rectProgramInfo.program);
+    twgl.setBuffersAndAttributes(this.gl, this.rectProgramInfo, this.bufferInfo);
+    twgl.setUniforms(this.rectProgramInfo, uniforms);
+    twgl.drawBufferInfo(this.gl, this.bufferInfo);
+
+		//twgl.bindFramebufferInfo(this.gl, this.fbi);
+		//twgl.drawBufferInfo(this.gl, this.bufferInfo);
 
     if(this.state.playing) {
       requestAnimationFrame(this.glRender);
@@ -95,7 +109,6 @@ export class TwglScene extends Component {
   }
 
 	render({ frag, vert, playing }) {
-    // this.setState({ playing: playing })
     if(this.state.playing !== playing) {
       this.state.playing = playing;
       requestAnimationFrame(this.glRender);
