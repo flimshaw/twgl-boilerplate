@@ -47,11 +47,15 @@ export class TwglScene extends Component {
     }, () => this.glRender(1.));
 
 		this.mousePos = [0,0];
+		this.mouseVel = [0,0];
 		window.addEventListener('mousemove', this.handleMouseMove.bind(this));
 	}
 	handleMouseMove(e) {
-		this.mousePos[0] = e.clientX / window.innerWidth;
-		this.mousePos[1] = 1 - e.clientY / window.innerHeight;
+		const newPos = [ e.clientX / window.innerWidth, 1 - e.clientY / window.innerHeight];
+		[0,1].map( i => {
+			this.mouseVel[i] = (newPos[i] - this.mousePos[i]) * -1;
+			this.mousePos[i] = newPos[i]; 
+		});
 	}
   handleMouseOver() {
     this.setState({ playing: true });
@@ -69,7 +73,6 @@ export class TwglScene extends Component {
 		}
     let width = this.el.width;
     let height = this.el.height;
-		//twgl.bindFramebufferInfo(this.gl, this.fbi);
     this.gl.viewport(0, 0, width, height);
 		this.count += 1;
     const uniforms = {
@@ -77,6 +80,7 @@ export class TwglScene extends Component {
       resolution: [width, height],
       noise: this.textures.noise,
 			mousePos: this.mousePos,
+			mouseVel: this.mouseVel,
     };
 		//console.log(this.mousePos);
 		// determine if this is an odd or even frame and arrange
