@@ -78,6 +78,7 @@ export class TwglScene extends Component {
       noise: this.textures.noise,
 			mousePos: this.mousePos,
     };
+		//console.log(this.mousePos);
 		// determine if this is an odd or even frame and arrange
 		// buffers accordingly
 		const i = this.count % 2;
